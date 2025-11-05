@@ -2,7 +2,7 @@ import { useFetch } from "../customHooks/customHooks"
 import type { Pokemon } from "../interfaces/Pokemon"
 
 export function PokemonCard(props:{url:string}){
-    const data : Pokemon | null = useFetch(props.url)
+    const data : Pokemon | null = useFetch<Pokemon>(props.url)
     if(data){
         console.log(data)
         return(

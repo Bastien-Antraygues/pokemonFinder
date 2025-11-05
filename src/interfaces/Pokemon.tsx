@@ -7,6 +7,10 @@ export interface Pokemon{
         front_default:string,
         back_default:string
     },
-    types:Types[],
+    types:[{
+        type:{
+            name:string,
+            url:string,
+    }}],
     order:number
 }
