@@ -11,11 +11,11 @@ export function Home(){
         return(
         <>
             <h1>Page d'Accueil</h1>
-            <div>
+            <div className="grid lg:grid-cols-2 xl:grid-cols-4 bg-red-50">
                 {
-                    data.results.map((result)=>{
+                    data.results.map((result,index)=>{
                         
-                        return <PokemonCard url={result.url}/>
+                        return <PokemonCard key={index} url={result.url}/>
                     })
                 }
             </div>

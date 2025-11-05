@@ -4,18 +4,17 @@ import type { Pokemon } from "../interfaces/Pokemon"
 export function PokemonCard(props:{url:string}){
     const data : Pokemon | null = useFetch<Pokemon>(props.url)
     if(data){
-        console.log(data)
         return(
             <>
         
-            <div><h1>{data.name}</h1>
+            <div className=""><h1 className="">{data.name}</h1>
             
-            <img src={data.sprites.front_default} alt="" /></div>
+            <img src={data.sprites.front_default} alt="" />
             <p>N° {data.order}</p>
             <p>Type : {data.types.map((element)=>{
                 return element.type.name+" "
             })}</p>
-            
+            </div>
         </>
         )
     }
