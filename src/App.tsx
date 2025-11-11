@@ -4,8 +4,9 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { Search } from './pages/Search'
 import { Favorites } from './pages/Favorites'
 import { Home } from './pages/Home'
+import { FavoriteProvider } from './components/FavoritesProvider'
 
-function App() {
+function AppRoute() {
 
   return (
     <BrowserRouter>
@@ -23,4 +24,11 @@ function App() {
   )
 }
 
+function App(){
+  return(
+    <FavoriteProvider>
+      <AppRoute/>
+    </FavoriteProvider>
+  )
+}
 export default App

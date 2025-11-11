@@ -1,11 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFetch } from "../customHooks/customHooks"
 import type { Pokemon } from "../interfaces/Pokemon"
 import { Type } from "./Type"
+import { useFavorites } from "./FavoritesProvider"
 
 export function PokemonCard(props:{url:string}){
     const data : Pokemon | null = useFetch<Pokemon>(props.url)
-    const [isFavorite, setIsFavorite] = useState(false)
+    
+    const {favorite, setFavorite} = useFavorites()
+    const initialString : string = favorite.filter(value => value.startsWith(props.url)).toString()
+    const inital : boolean = initialString ? true:false
+    const [isFavorite, setIsFavorite] = useState(inital)
+    
+    useEffect(()=>{
+        
+        if(isFavorite && data){
+            let tab :string[] = favorite
+            tab.push(props.url)
+            setFavorite(tab)
+            console.log(favorite)
+        }
+    },[isFavorite])
+
     if(data){
         return(
             <>
@@ -25,7 +41,7 @@ export function PokemonCard(props:{url:string}){
                 <img className="mx-auto" src={data.sprites.front_default} alt="" />
                 <p>N° {data.id}</p>
                 <div className="flex">{data.types.map((element)=>{
-                    return <Type  name={element.type.name} />
+                    return <Type key={element.type.name} name={element.type.name} />
                 })}</div>
             </div>
         </>
