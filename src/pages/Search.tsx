@@ -33,7 +33,7 @@ export function Search() {
 
             {
                 data ? (
-                    <div className="grid lg:grid-cols-2 xl:grid-cols-4 bg-red-50">
+                    <div className="grid lg:grid-cols-2 xl:grid-cols-4">
                         {
                             filterResults.slice(0, 20).map((result) => {
                                 const id = result.url.split("/").filter(Boolean).pop();
