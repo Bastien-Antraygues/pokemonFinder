@@ -15,10 +15,15 @@ export function PokemonCard(props:{url:string}){
     useEffect(()=>{
         
         if(isFavorite && data){
-            let tab :string[] = favorite
-            tab.push(props.url)
-            setFavorite(tab)
-            console.log(favorite)
+            if(!favorite.includes(props.url)){
+                setFavorite([...favorite,props.url])
+            }
+            
+        }else if(!isFavorite && data){
+            if(favorite.includes(props.url)){
+                
+                setFavorite(favorite.filter((item)=>item!==props.url))
+            }
         }
     },[isFavorite])
 
@@ -26,7 +31,7 @@ export function PokemonCard(props:{url:string}){
         return(
             <>
         
-            <div className="m-4 p-4 border-1 text-center w-60 mx-auto bg-red-50">
+            <div className="m-4 p-4 border-1 text-center w-60 mx-auto bg-pink-light-3">
                 <div className="text-right">
                     <button
                         className=""
