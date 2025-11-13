@@ -3,6 +3,7 @@ import { useFetch } from "../customHooks/customHooks"
 import type { Pokemon } from "../interfaces/Pokemon"
 import { Type } from "./Type"
 import { useFavorites } from "./FavoritesProvider"
+import { upperName } from "./FunctionSpecial"
 
 export function PokemonCard(props:{url:string}){
     const data : Pokemon | null = useFetch<Pokemon>(props.url)
@@ -31,7 +32,7 @@ export function PokemonCard(props:{url:string}){
         return(
             <>
         
-            <div className="m-4 p-4 border-1 text-center w-60 mx-auto bg-pink-light-3">
+            <div className="m-4 p-4 border-2 border-pink-light-6 text-center w-60 mx-auto bg-pink-light-3">
                 <div className="text-right">
                     <button
                         className=""
@@ -41,7 +42,7 @@ export function PokemonCard(props:{url:string}){
                     {isFavorite ? "❤️" : "🤍"}
                     </button>
                 </div>
-                <h1 className="">{data.name}</h1>
+                <h1 className="">{upperName(data.name)}</h1>
             
                 <img className="mx-auto" src={data.sprites.front_default} alt="" />
                 <p>N° {data.id}</p>

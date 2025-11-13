@@ -28,8 +28,9 @@ export function Search() {
 
     return (
         <>
-            <h1>Page de recherche</h1>
-            <input type="text" value={search} onInput={(e) => setSearch(e.target.value)} placeholder="Recherche par nom de pokemon" />
+            
+            <input type="text" value={search} onInput={(e) => setSearch(e.target.value)} 
+            className="ml-18 p-2 bg-pink-light-3 border-2 border-pink-light-6 w-80" placeholder="Recherche par nom de pokemon" />
 
             {
                 data ? (

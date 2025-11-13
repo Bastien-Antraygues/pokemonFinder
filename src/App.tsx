@@ -1,20 +1,17 @@
 import './App.css'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import { Search } from './pages/Search'
 import { Favorites } from './pages/Favorites'
 import { Home } from './pages/Home'
 import { FavoriteProvider } from './components/FavoritesProvider'
+import { NavBar } from './components/NavBar'
 
 function AppRoute() {
 
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/">Accueil</Link>
-        <Link to="/search">Recherche</Link>
-        <Link to="/favorites">Favoris</Link>
-      </nav>
+      <NavBar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/search' element={<Search/>}/>

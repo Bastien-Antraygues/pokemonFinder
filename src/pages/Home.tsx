@@ -10,7 +10,7 @@ export function Home(){
     if(data){
         return(
         <>
-            <h1>Page d'Accueil</h1>
+            
             <div className="grid lg:grid-cols-2 xl:grid-cols-4">
                 {
                     data.results.map((result,index)=>{
