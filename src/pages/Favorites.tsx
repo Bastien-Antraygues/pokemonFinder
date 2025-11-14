@@ -1,5 +1,5 @@
 import { useFavorites } from "../components/FavoritesProvider"
-import { PokemonCard } from "../components/pokemonCard";
+import { PokemonCard } from "../components/PokemonCard";
 
 export function Favorites() {
     const { favorite } = useFavorites()

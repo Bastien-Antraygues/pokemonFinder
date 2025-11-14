@@ -32,7 +32,7 @@ export function PokemonCard(props:{url:string}){
         return(
             <>
         
-            <div className="m-4 p-4 border-2 border-pink-light-6 text-center w-60 mx-auto bg-pink-light-3">
+            <div className="m-4 p-4 border-2  text-center w-60 mx-auto border-pink-light-6 bg-pink-light-3 dark:border-pink-dark-6 dark:bg-pink-dark-3">
                 <div className="text-right">
                     <button
                         className=""
