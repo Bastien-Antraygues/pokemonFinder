@@ -1,11 +1,11 @@
-import { PokemonCard } from "../components/pokemonCard"
+import { PokemonCard } from "../components/PokemonCard"
 import { useFetch } from "../customHooks/customHooks"
 import type { Page } from "../interfaces/Page"
 import type { Pokemon } from "../interfaces/Pokemon"
 
 export function Home(){
-
-    let data : Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0")
+    const offset = getRandomInt(1302)
+    const data : Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0")
     
     if(data){
         return(
@@ -29,4 +29,8 @@ export function Home(){
             <p>pas de data</p>
         </>
     )
+}
+
+function getRandomInt(max:number) {
+  return Math.floor(Math.random() * max);
 }
