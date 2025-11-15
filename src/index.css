@@ -3,30 +3,35 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme{
-  --color-midnight: #121063;
-  --color-pink-light-1: #FFFCFE;
-  --color-pink-light-2: #FEF7FB;
-  --color-pink-light-3: #FEE9F5;
-  --color-pink-light-4: #FBDCEF;
-  --color-pink-light-5: #F6CEE7;
-  --color-pink-light-6: #EFBFDD;
-  --color-pink-light-7: #E7ACD0;
-  --color-pink-light-8: #DD93C2;
-  --color-pink-light-9: #D6409F;
-  --color-pink-light-10: #CF3897;
-  --color-pink-light-11: #C2298A;
-  --color-pink-light-12: #651249;
+  --color-pink-1: #FFFCFE;
+  --color-pink-2: #FEF7FB;
+  --color-pink-3: #FEE9F5;
+  --color-pink-4: #FBDCEF;
+  --color-pink-5: #F6CEE7;
+  --color-pink-6: #EFBFDD;
+  --color-pink-7: #E7ACD0;
+  --color-pink-8: #DD93C2;
+  --color-pink-9: #D6409F;
+  --color-pink-10: #CF3897;
+  --color-pink-11: #C2298A;
+  --color-pink-12: #651249;
+}
 
-  --color-pink-dark-1: #191117;
-  --color-pink-dark-2: #21121D;
-  --color-pink-dark-3: #37172F;
-  --color-pink-dark-4: #4B143D;
-  --color-pink-dark-5: #591C47;
-  --color-pink-dark-6: #692955;
-  --color-pink-dark-7: #833869;
-  --color-pink-dark-8: #A84885;
-  --color-pink-dark-9: #D6409F;
-  --color-pink-dark-10: #DE51A8;
-  --color-pink-dark-11: #FF8DCC;
-  --color-pink-dark-12: #FDD1EA;
+@layer base {
+  * {
+    @variant dark {
+      --color-pink-1: #191117;
+      --color-pink-2: #21121D;
+      --color-pink-3: #37172F;
+      --color-pink-4: #4B143D;
+      --color-pink-5: #591C47;
+      --color-pink-6: #692955;
+      --color-pink-7: #833869;
+      --color-pink-8: #A84885;
+      --color-pink-9: #D6409F;
+      --color-pink-10: #DE51A8;
+      --color-pink-11: #FF8DCC;
+      --color-pink-12: #FDD1EA;
+    }
+  }
 }
