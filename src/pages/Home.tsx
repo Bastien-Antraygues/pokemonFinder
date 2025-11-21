@@ -1,24 +1,24 @@
 import { PokemonCard } from "../components/PokemonCard"
+import { PokemonList } from "../components/PokemonList"
 import { useFetch } from "../customHooks/customHooks"
 import type { Page } from "../interfaces/Page"
 import type { Pokemon } from "../interfaces/Pokemon"
 
 export function Home(){
-    const offset = getRandomInt(1302)
-    const data : Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0")
+    const offset = getRandomInt(1299)
+
+    console.log(offset+" ")
+    const data : Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=1302")
     if(data){
         return(
         <>
-            
-            <div className="grid lg:grid-cols-2 xl:grid-cols-4">
-                {
-                    data.results.map((result,index)=>{
-                        
-                        return <PokemonCard key={index} url={result.url}/>
-                    })
-                }
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+                data.results.slice(offset,offset+20).map((page)=>{
+                    return <PokemonCard url={page.url} key={page.name}/>
+                })
+            }
             </div>
-
         </>
     )
     }
