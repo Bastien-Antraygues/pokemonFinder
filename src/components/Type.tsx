@@ -39,6 +39,8 @@ export function Type(props:{name:string}){
                 return 'bg-[#53a4cf] text-white'
             case 'dark':
                 return 'bg-[#707070] text-white'
+            case 'ground': 
+                return 'bg-[#ab9842] text-black'
         }
     }
     
