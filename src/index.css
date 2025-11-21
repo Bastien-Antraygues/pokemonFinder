@@ -15,6 +15,14 @@
   --color-pink-10: #CF3897;
   --color-pink-11: #C2298A;
   --color-pink-12: #651249;
+
+  --color-stats-bar-1: #c00;
+  --color-stats-bar-2: #cc5200;
+  --color-stats-bar-3: #cc7d00;
+  --color-stats-bar-4: #ccc500;
+  --color-stats-bar-5: #95cc80;
+  --color-stats-bar-6: #60cc00;
+  --color-stats-bar-7: #00a8cc;
 }
 
 @layer base {
