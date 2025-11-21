@@ -7,6 +7,7 @@ import { Home } from './pages/Home'
 import { FavoriteProvider } from './components/FavoritesProvider'
 import { NavBar } from './components/NavBar'
 import { ThemeProvider } from './components/ThemeProvider'
+import { PokemonDetail } from './pages/PokemonDetail'
 
 function AppRoute() {
 
@@ -17,6 +18,7 @@ function AppRoute() {
         <Route path='/' element={<Home />} />
         <Route path='/search' element={<Search />} />
         <Route path='/favorites' element={<Favorites />} />
+        <Route path='/detail/:id' element={<PokemonDetail/>}/>
       </Routes>
     </BrowserRouter>
   )
