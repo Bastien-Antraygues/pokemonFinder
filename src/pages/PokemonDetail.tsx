@@ -11,9 +11,6 @@ export function PokemonDetail() {
     const pokemon: Pokemon | null = useFetch("/api/pokemon/" + params.id)
     const navigate = useNavigate()
     if (pokemon) {
-        let id = parseInt(params.id ||"0")
-        /*<div><Link to={"/detail/"+(id-1)} className={params.id=="1" || id>1026 ? "hidden":"" }>{"<-"} Previus</Link></div>
-        <div><Link to={"/detail/"+(id+1)} className={params.id=="1025" || id>1026?"hidden":""}>Next {"->"}</Link></div>*/
         
         return (
             <>
@@ -29,7 +26,7 @@ export function PokemonDetail() {
                             <div className="flex w-[225px] mx-auto">{pokemon.types.map((element) => {
                                 return <Type key={element.type.name} name={element.type.name} />
                             })}</div>
-                            <p className="mt-2">N°{params.id}  </p>
+                            <p className="mt-2">N°{pokemon.id}  </p>
                         </div>
                         <div>
                             <PokemonStats stats={pokemon.stats} />
