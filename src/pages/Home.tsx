@@ -7,7 +7,6 @@ import type { Pokemon } from "../interfaces/Pokemon"
 export function Home(){
     const offset = getRandomInt(1299)
 
-    console.log(offset+" ")
     const data : Page | null = useFetch<Page>("/api/pokemon/?limit=1302")
     if(data){
         return(

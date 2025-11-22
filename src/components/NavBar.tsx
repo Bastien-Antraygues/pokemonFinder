@@ -23,6 +23,5 @@ export function NavBar(){
 
     function changeTheme(){
         setTheme(theme ==='light'?'dark':'light')
-        console.log(theme)
     }
 }
