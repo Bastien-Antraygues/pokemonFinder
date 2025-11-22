@@ -25,7 +25,10 @@ export const PokemonCard = React.memo(function (props: { url: string }) {
         return (
             <>
 
-                <h1>Pokemon non trouvé</h1>
+                <div className="m-4 p-4 border-2  text-center w-60 mx-auto border-pink-6 bg-pink-3 rounded-xl">
+                <h1 className="mt-8">Pokemon not find</h1>
+
+            </div>
 
             </>
         )
