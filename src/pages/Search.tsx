@@ -1,24 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useFetch } from "../customHooks/customHooks";
 import type { Page } from "../interfaces/Page";
 import { PokemonList } from "../components/PokemonList";
 // 1328
 export function Search() {
     const [search, setSearch] = useState("")
-    const [filterResults, setFilterResults] = useState<{ name: string; url: string }[]>([])
     let data: Page | null = useFetch<Page>("/api/pokemon/?limit=1302")
-    useEffect(() => {
-        if (data) {
-            console.log(search)
-            if (search && search.length > 2) {
-                
-                setFilterResults(data.results.filter(result => result.name.toLowerCase().includes(search.toLowerCase())))
-            } else {
-                setFilterResults(data.results)
-            }
-
-        }
-    }, [search, data])
+    
+    const filtered = useMemo(()=>{
+        if(!data) return []
+        if(search.length<3) return data.results
+        return data.results.filter(result => result.name.toLowerCase().includes(search.toLowerCase()))
+    },[search,data])
 
     return (
         <>
@@ -29,7 +22,7 @@ export function Search() {
             {
                 data ? (
                     <>
-                        <PokemonList pokeList={filterResults} isPageable={search.length<3}/>
+                        <PokemonList pokeList={filtered} isPageable={search.length<3}/>
                     </>
 
 
