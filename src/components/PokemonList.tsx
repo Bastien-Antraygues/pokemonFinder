@@ -1,36 +1,39 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { PokeSize } from "../interfaces/PokeSize";
 import { PokemonCard } from "./PokemonCard";
 import { PageableComponent } from "./PageableComponent";
 // max page 66
-export function PokemonList(props: { pokeList: { name: string, url: string }[], isPageable:boolean }) {
+export function PokemonList(props: { pokeList: { name: string, url: string }[], isPageable: boolean }) {
 
     const [page, setPage] = useState<number>(1)
     const [pageable, setPageable] = useState<{ pStart: number, pEnd: number }>(getPokeSize(page))
 
-    useEffect(()=>{
+    useEffect(() => {
         setPage(1)
         setPageable(getPokeSize(1))
-    },[props.pokeList])
-
+    }, [props.pokeList])
+    const onSelectPage = useCallback((sPage: number) => {
+        setPage(sPage)
+        setPageable(getPokeSize(sPage))
+    }, [])
     return (
         <>
-        {
-            props.isPageable ?
-            <ul className="flex justify-center">
-                <li>
-                    {
-                        getPage(page).map((pageNumber) => {
-                            return <PageableComponent key={pageNumber} pageNumber={pageNumber} isPage={page == pageNumber}
-                                onSelectPage={onSelectPage}
-                            />
-                        })
-                    }
-                </li>
+            {
+                props.isPageable ?
+                    <ul className="flex justify-center">
+                        <li>
+                            {
+                                getPage(page).map((pageNumber) => {
+                                    return <PageableComponent key={pageNumber} pageNumber={pageNumber} isPage={page == pageNumber}
+                                        onSelectPage={onSelectPage}
+                                    />
+                                })
+                            }
+                        </li>
 
-            </ul> : <></>
-        }
-            
+                    </ul> : <></>
+            }
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {
                     props.pokeList.slice(pageable.pStart, pageable.pEnd).map((result) => {
@@ -43,10 +46,7 @@ export function PokemonList(props: { pokeList: { name: string, url: string }[], 
 
     )
 
-    function onSelectPage(sPage: number) {
-        setPage(sPage)
-        setPageable(getPokeSize(sPage))
-    }
+
 }
 
 function getPage(pageNumber: number) {
