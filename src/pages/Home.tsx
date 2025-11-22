@@ -8,7 +8,7 @@ export function Home(){
     const offset = getRandomInt(1299)
 
     console.log(offset+" ")
-    const data : Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=1302")
+    const data : Page | null = useFetch<Page>("/api/pokemon/?limit=1302")
     if(data){
         return(
         <>

@@ -8,4 +8,13 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  server: {
+    proxy:{
+      "/api":{
+        target: "https://pokeapi.co/api/v2",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/,"")
+      }
+    }
+  }
 })

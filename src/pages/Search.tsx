@@ -6,7 +6,7 @@ import { PokemonList } from "../components/PokemonList";
 export function Search() {
     const [search, setSearch] = useState("")
     const [filterResults, setFilterResults] = useState<{ name: string; url: string }[]>([])
-    let data: Page | null = useFetch<Page>("https://pokeapi.co/api/v2/pokemon/?limit=1302")
+    let data: Page | null = useFetch<Page>("/api/pokemon/?limit=1302")
     useEffect(() => {
         if (data) {
             console.log(search)

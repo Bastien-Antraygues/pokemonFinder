@@ -8,7 +8,7 @@ import { upperName } from "../components/FunctionSpecial"
 
 export function PokemonDetail() {
     const params = useParams()
-    const pokemon: Pokemon | null = useFetch("https://pokeapi.co/api/v2/pokemon/" + params.id)
+    const pokemon: Pokemon | null = useFetch("/api/pokemon/" + params.id)
     const navigate = useNavigate()
     if (pokemon) {
         let id = parseInt(params.id ||"0")
