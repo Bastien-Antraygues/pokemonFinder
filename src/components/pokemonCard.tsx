@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { useFetch } from "../customHooks/customHooks"
 import type { Pokemon } from "../interfaces/Pokemon"
 import { Type } from "./Type"
 import { useFavorites } from "./FavoritesProvider"
 import { upperName } from "./FunctionSpecial"
 import { useNavigate } from "react-router-dom"
+import api from "../services/api"
 
 export const PokemonCard = React.memo(function (props: { url: string }) {
-    const data: Pokemon | null = useFetch<Pokemon>(props.url)
-
+    const [pokemon,setPokemon] = useState<Pokemon>()
+    useEffect(()=>{
+        api.getPokemon(props.url).then(poke => {
+            setPokemon(poke)
+        })
+    })
     const { favorite, setFavorite } = useFavorites()
     const isFavorite = favorite.includes(props.url)
     const navigate = useNavigate()
@@ -21,7 +25,7 @@ export const PokemonCard = React.memo(function (props: { url: string }) {
         }
     }
 
-    if (!data) {
+    if (!pokemon) {
         return (
             <>
 
@@ -48,12 +52,12 @@ export const PokemonCard = React.memo(function (props: { url: string }) {
                         {isFavorite ? "❤️" : "🤍"}
                     </button>
                 </div>
-                <div onClick={() => navigate("/detail/" + data.id)} className=" p-2 border-pink-8 rounded-lg hover:shadow-2xl">
-                    <h1 className="">{upperName(data.name)}</h1>
+                <div onClick={() => navigate("/detail/" + pokemon.id)} className=" p-2 border-pink-8 rounded-lg hover:shadow-2xl">
+                    <h1 className="">{upperName(pokemon.name)}</h1>
 
-                    <img className="mx-auto" src={data.sprites.front_default} alt="" />
-                    <p>N° {data.id}</p>
-                    <div className="flex">{data.types.map((element) => {
+                    <img className="mx-auto" src={pokemon.sprites.front_default} alt="" />
+                    <p>N° {pokemon.order}</p>
+                    <div className="flex">{pokemon.types.map((element) => {
                         return <Type key={element.type.name} name={element.type.name} />
                     })}</div>
                 </div>
