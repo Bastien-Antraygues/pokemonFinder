@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { useFetch } from "../customHooks/customHooks";
 import type { Page } from "../interfaces/Page";
 import { PokemonList } from "../components/PokemonList";
+import api from "../services/api";
 // 1328
 export function Search() {
     const [search, setSearch] = useState("")
-    let data: Page | null = useFetch<Page>("/api/pokemon/?limit=1302")
-    
+    const [data, setData] = useState<Page>()
+    useEffect(() => {
+        api.getPokemons().then(page => {
+            setData(page)
+        })
+    }, [])
     const filtered = useMemo(()=>{
         if(!data) return []
         if(search.length<3) return data.results
