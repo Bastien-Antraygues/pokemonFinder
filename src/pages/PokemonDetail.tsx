@@ -1,15 +1,36 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { useFetch } from "../customHooks/customHooks"
+import { useNavigate, useParams } from "react-router-dom"
 import type { Pokemon } from "../interfaces/Pokemon"
 import { Type } from "../components/Type"
 import { AbilityComponent } from "../components/AbilityComponent"
 import { PokemonStats } from "../components/PokemonStats"
 import { upperName } from "../components/FunctionSpecial"
+import { useEffect, useState } from "react"
+import api from "../services/api"
 
 export function PokemonDetail() {
     const params = useParams()
-    const pokemon: Pokemon | null = useFetch("/api/pokemon/" + params.id)
+    const [pokemon,setPokemon] = useState<Pokemon>()
+    const [loading,setLoading] = useState(true)
+    const [error,setError] = useState("")
+    useEffect(()=>{
+        setLoading(true)
+        if(params.id){
+            api.getPokemonById(params.id)
+            .then((poke)=> setPokemon(poke))
+            .catch((err)=> setError(err))
+            .finally(()=> setLoading(false))
+        }
+        
+    },[])
     const navigate = useNavigate()
+    if(loading){
+        return (
+            <p>Chargement En cours...</p>
+        )
+    }
+    if(error){
+        return <p>Erreur {error}</p>
+    }
     if (pokemon) {
         
         return (
