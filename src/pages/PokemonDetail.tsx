@@ -45,9 +45,9 @@ export function PokemonDetail() {
                             <h1 className="font-bold text-lg">{upperName(pokemon.name)} </h1>
                             <img className="mx-auto" src={pokemon.sprites.front_default} alt="" />
                             <div className="flex w-[225px] mx-auto">{pokemon.types.map((element) => {
-                                return <Type key={element.type.name} name={element.type.name} />
+                                return element?.type?.name ? <Type key={element.type.name} name={element.type.name}  />: null
                             })}</div>
-                            <p className="mt-2">N°{pokemon.id}  </p>
+                            <p className="mt-2">N°{pokemon.order}  </p>
                         </div>
                         <div>
                             <PokemonStats stats={pokemon.stats} />
@@ -58,7 +58,7 @@ export function PokemonDetail() {
                         <h2 className="font-semibold text-lg">Talent : </h2>
                         {
                             pokemon.abilities.map((ability) => {
-                                return <AbilityComponent key={ability.ability.name} url={ability.ability.url} />
+                                return <AbilityComponent key={ability.ability.id} ability={ability.ability} />
                             })
                         }
                     </div>
