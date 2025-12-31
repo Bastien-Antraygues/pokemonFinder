@@ -1,4 +1,5 @@
 export interface Ability{
+    id:number,
     effect_entries: {
         effect:string
         language:{
