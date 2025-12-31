@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import type { PokeSize } from "../interfaces/PokeSize";
 import { PokemonCard } from "./PokemonCard";
 import { PageableComponent } from "./PageableComponent";
+import type { Pokemon } from "../interfaces/Pokemon";
 // max page 66
-export function PokemonList(props: { pokeList: { name: string, url: string }[], isPageable: boolean }) {
-
+export function PokemonList(props: { pokeList: Pokemon[], isPageable: boolean }) {
+    const maxPage = Math.ceil(props.pokeList.length/20)
     const [page, setPage] = useState<number>(1)
     const [pageable, setPageable] = useState<{ pStart: number, pEnd: number }>(getPokeSize(page))
 
@@ -23,7 +24,7 @@ export function PokemonList(props: { pokeList: { name: string, url: string }[], 
                     <ul className="flex justify-center">
                         <li>
                             {
-                                getPage(page).map((pageNumber) => {
+                                getPage(page,maxPage).map((pageNumber) => {
                                     return <PageableComponent key={pageNumber} pageNumber={pageNumber} isPage={page == pageNumber}
                                         onSelectPage={onSelectPage}
                                     />
@@ -37,8 +38,8 @@ export function PokemonList(props: { pokeList: { name: string, url: string }[], 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {
                     props.pokeList.slice(pageable.pStart, pageable.pEnd).map((result) => {
-                        const id = result.url.split("/").filter(Boolean).pop();
-                        return <PokemonCard key={id} url={result.url} />
+                        const id = result.id;
+                        return <PokemonCard key={id} pokemon={result} />
                     })
                 }
             </div>
@@ -49,13 +50,13 @@ export function PokemonList(props: { pokeList: { name: string, url: string }[], 
 
 }
 
-function getPage(pageNumber: number) {
+function getPage(pageNumber: number, maxPage:number = 66) {
     let pageStart: number = pageNumber
     let pageEnd: number = pageNumber
-    if (pageNumber < 66) {
+    if (pageNumber < maxPage) {
         for (let i = pageNumber; i < pageNumber + 3; i++) {
             pageEnd = i
-            if (i == 66) {
+            if (i == maxPage) {
                 break
             }
         }
@@ -75,8 +76,8 @@ function getPage(pageNumber: number) {
     if (pageStart > 1) {
         tab = [1].concat(tab)
     }
-    if (pageEnd < 66) {
-        tab.push(66)
+    if (pageEnd < maxPage) {
+        tab.push(maxPage)
     }
     return tab
 }
