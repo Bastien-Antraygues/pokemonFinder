@@ -6,22 +6,16 @@ import { upperName } from "./FunctionSpecial"
 import { useNavigate } from "react-router-dom"
 import api from "../services/api"
 
-export const PokemonCard = React.memo(function (props: { url: string }) {
-    const [pokemon,setPokemon] = useState<Pokemon>()
-    useEffect(()=>{
-        api.getPokemon(props.url).then(poke => {
-            setPokemon(poke)
-        })
-    })
+export const PokemonCard = React.memo(function ({pokemon}: { pokemon: Pokemon }) {
     const { favorite, setFavorite } = useFavorites()
-    const isFavorite = favorite.includes(props.url)
+    const isFavorite = favorite.some(f => f.name == pokemon.name)
     const navigate = useNavigate()
-
+    
     function toggleFavorite(){
         if(isFavorite){
-            setFavorite(favorite.filter(item=>item!==props.url))
+            setFavorite(favorite.filter(item=>item.name!==pokemon.name))
         }else{
-            setFavorite([...favorite,props.url])
+            setFavorite([...favorite,pokemon])
         }
     }
 
@@ -52,13 +46,13 @@ export const PokemonCard = React.memo(function (props: { url: string }) {
                         {isFavorite ? "❤️" : "🤍"}
                     </button>
                 </div>
-                <div onClick={() => navigate("/detail/" + pokemon.id)} className=" p-2 border-pink-8 rounded-lg hover:shadow-2xl">
+                <div onClick={() => navigate("/detail/" + pokemon.name)} className=" p-2 border-pink-8 rounded-lg hover:shadow-2xl">
                     <h1 className="">{upperName(pokemon.name)}</h1>
 
                     <img className="mx-auto" src={pokemon.sprites.front_default} alt="" />
                     <p>N° {pokemon.order}</p>
                     <div className="flex">{pokemon.types.map((element) => {
-                        return <Type key={element.type.name} name={element.type.name} />
+                        return element?.type?.name ? <Type key={element.type.name} name={element.type.name}  />: null
                     })}</div>
                 </div>
 
