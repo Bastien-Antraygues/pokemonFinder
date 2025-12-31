@@ -1,28 +1,7 @@
-import { useEffect, useState } from "react"
 import type { Ability } from "../interfaces/Ability"
-import api from "../services/api"
 
-export function AbilityComponent(props: { url: string }) {
-    const [ability, setAbility] = useState<Ability>()
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState("")
-
-    useEffect(() => {
-        setLoading(true)
-        api.getAbility(props.url).then((abi) => setAbility(abi))
-            .catch((err) => setError(err))
-            .finally(() => setLoading(false))
-    }, [])
-    if (loading) {
-        return (
-            <p>Chargement en Cour ...</p>
-        )
-    }
-    if(error){
-        return(
-            <p>Erreur {error}</p>
-        )
-    }
+export function AbilityComponent({ability}: { ability: Ability }) {
+    
     if (!ability) {
         return (
             <>
