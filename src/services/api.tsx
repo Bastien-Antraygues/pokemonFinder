@@ -18,18 +18,12 @@ const fetch = axios.create({
 
 const api = {
   getPokemons: async () => {
-    return fetch.get<Page>("/pokemon/?limit=1302").then((res)=> res.data)
-  },
-
-  getPokemon: async (url:string) => {
-    return fetch.get<Pokemon>(url).then((res)=> res.data)
+    return fetch.get<Pokemon[]>("/pokemon/all").then((res)=> res.data)
   },
   getPokemonById: async (id:string) => {
     return fetch.get<Pokemon>("/pokemon/"+id).then((res)=>res.data)
   },
-  getAbility: async (url:string) =>{
-    return fetch.get<Ability>(url).then((res)=> res.data)
-  }
+  
 }
 
 
