@@ -1,21 +1,30 @@
 import { useEffect, useState } from "react"
 import { PokemonCard } from "../components/PokemonCard"
-import type { Page } from "../interfaces/Page"
 import api from "../services/api"
+import type { Pokemon } from "../interfaces/Pokemon"
 
 export function Home() {
-    const offset = getRandomInt(1299)
-    const [data, setData] = useState<Page>()
+    const [offset, setOffset] = useState(0)
+    const [data, setData] = useState<Pokemon[]>([])
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState("")
+
 
     useEffect(() => {
         setLoading(true)
         api.getPokemons().then(page => {
             setData(page)
+            setOffset(getRandomInt(page.length - 20))
         }).catch((err)=>setError(err))
-        .finally(()=> setLoading(false))
+        .finally(()=> {
+            console.log(data)
+            setLoading(false)})
     }, [])
+    
+    useEffect(() => {
+        console.log("Data mise à jour :", data)
+    }, [data])
+
     if(loading){
         return(
             <p>Chargement En cours ...</p>
@@ -26,13 +35,13 @@ export function Home() {
             <p>Erreur: {error}</p>
         )
     }
-    if (data) {
+    if (data.length>0) {
         return (
             <>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {
-                        data.results.slice(offset, offset + 20).map((page) => {
-                            return <PokemonCard url={page.url} key={page.name} />
+                        data.slice(offset, offset + 20).map((pokemon) => {
+                            return <PokemonCard pokemon={pokemon} key={pokemon.name} />
                         })
                     }
                 </div>

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Page } from "../interfaces/Page";
 import { PokemonList } from "../components/PokemonList";
 import api from "../services/api";
+import type { Pokemon } from "../interfaces/Pokemon";
 // 1328
 export function Search() {
     const [search, setSearch] = useState("")
-    const [data, setData] = useState<Page>()
+    const [data, setData] = useState<Pokemon[]>()
     useEffect(() => {
         api.getPokemons().then(page => {
             setData(page)
@@ -13,8 +13,8 @@ export function Search() {
     }, [])
     const filtered = useMemo(()=>{
         if(!data) return []
-        if(search.length<3) return data.results
-        return data.results.filter(result => result.name.toLowerCase().includes(search.toLowerCase()))
+        if(search.length<3) return data
+        return data.filter(result => result.name.toLowerCase().includes(search.toLowerCase()))
     },[search,data])
 
     return (
