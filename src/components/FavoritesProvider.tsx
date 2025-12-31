@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import type { Pokemon } from "../interfaces/Pokemon";
 
 const FavoriteContext = createContext<{
-    favorite:string[],
-    setFavorite: (favorite:string[])=>void
+    favorite:Pokemon[],
+    setFavorite: (favorite:Pokemon[])=>void
 }>({
     favorite: [],
     setFavorite: () => {}
@@ -10,7 +11,7 @@ const FavoriteContext = createContext<{
 
 export function FavoriteProvider({children}:{children:ReactNode}){
 
-    const [favorite,setFavoriteState] = useState(()=>{
+    const [favorite,setFavoriteState] = useState<Pokemon[]>(()=>{
         const savedFavorite : string | null = localStorage.getItem('favorite')
         if(savedFavorite){
             return JSON.parse(savedFavorite)
@@ -18,7 +19,7 @@ export function FavoriteProvider({children}:{children:ReactNode}){
         return []
     })
 
-    const setFavorite = (newFavorite:string[]) =>{
+    const setFavorite = (newFavorite:Pokemon[]) =>{
         setFavoriteState(newFavorite)
         localStorage.setItem('favorite',JSON.stringify(newFavorite))
     }
