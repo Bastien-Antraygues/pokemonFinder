@@ -1,20 +1,7 @@
-import axios from "axios";
-import type { Page } from "../interfaces/Page";
 import type { Pokemon } from "../interfaces/Pokemon";
-import type { Ability } from "../interfaces/Ability";
-
+import fetch from "../config/fetch";
  
-const fetch = axios.create({
 
-  baseURL: "/api",
-
-  headers: {
-
-    "Content-Type": "application/json"
-
-  }
-
-});
 
 const api = {
   getPokemons: async () => {
