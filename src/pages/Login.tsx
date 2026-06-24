@@ -14,7 +14,7 @@ export function Login(){
         e.preventDefault();
         try {
             const res = await api.login(email, password);
-            login(res.user, res.token);
+            await login(res.token);
             navigate("/");
         } catch (error) {
             console.error("Login failed", error);
