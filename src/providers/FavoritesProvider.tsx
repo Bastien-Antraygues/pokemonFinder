@@ -1,15 +1,43 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Pokemon } from "../interfaces/Pokemon";
+import type { Favorites } from "../interfaces/Favorites";
+import { useAuth } from "./AuthProvider";
+import apiFavorites from "../services/api-favorites";
 
 const FavoriteContext = createContext<{
+    favorites:Favorites | null,
     favorite:Pokemon[],
-    setFavorite: (favorite:Pokemon[])=>void
+    setFavorite: (favorite:Pokemon[])=>void,
+    favoriteAdd: (pokemon:Pokemon)=>void
 }>({
+    favorites: null,
     favorite: [],
-    setFavorite: () => {}
+    setFavorite: () => {},
+    favoriteAdd: () => {}
 })
 
 export function FavoriteProvider({children}:{children:ReactNode}){
+
+    const { user } = useAuth()
+
+    const [favorites,setFavorites] = useState<Favorites | null>(null)
+
+    useEffect(()=>{
+        if(user){
+            apiFavorites.getFavorites().then((res)=>{
+                setFavorites(res)
+            })
+        }else{
+            setFavorites(null)
+        }
+    },[user])
+
+    const favoriteAdd = (pokemon:Pokemon) => {
+        if(!favorites) return
+        apiFavorites.setPokemonFavorite(pokemon.id).then((res)=>{
+            setFavorites(res)
+        })
+    }
 
     const [favorite,setFavoriteState] = useState<Pokemon[]>(()=>{
         const savedFavorite : string | null = localStorage.getItem('favorite')
@@ -29,7 +57,7 @@ export function FavoriteProvider({children}:{children:ReactNode}){
     },[favorite])
 
     return(
-        <FavoriteContext.Provider value={{favorite,setFavorite}}>
+        <FavoriteContext.Provider value={{favorites,favorite,setFavorite,favoriteAdd}}>
             {children}
         </FavoriteContext.Provider>
     )
