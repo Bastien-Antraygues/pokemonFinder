@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFavorites } from "../components/FavoritesProvider"
+import { useFavorites } from "../providers/FavoritesProvider"
 import { PageableComponent } from "../components/PageableComponent";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokeSize } from "../components/PokemonList";

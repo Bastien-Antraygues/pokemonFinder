@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "../providers/ThemeProvider";
 import { useAuth } from "../providers/AuthProvider";
 import api from "../services/api";
 
