@@ -1,4 +1,4 @@
-import { createContext, use, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import type { User } from "../interfaces/User";
 import api from "../services/api";
 import fetch from "../config/fetch";
@@ -6,7 +6,7 @@ import fetch from "../config/fetch";
 type AuthContextType = {
     user: User | null,
     token: string | null,
-    login: (userData: User, token: string) => void,
+    login: (token: string) => void,
     logout: () => void,
     isAuthorized: (requiredRole: string) => boolean
 }
@@ -44,9 +44,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         fetch.defaults.headers["Authorization"] = token ? `Bearer ${token}` : "";
     },[token])
 
-    const login = (userData: User, token: string) => {
-        setUser(userData);
+    const login = async (token: string) => {
         setToken(token);
+        const userData = await api.getUserMe()
+        setUser(userData.user);
+        
     }
 
     const logout = () => {
@@ -69,5 +71,5 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 }
 
 export function useAuth() {
-    return use(AuthContext);
+    return useContext(AuthContext);
 }
