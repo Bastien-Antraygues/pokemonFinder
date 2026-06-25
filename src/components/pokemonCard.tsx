@@ -9,8 +9,8 @@ import { useAuth } from "../providers/AuthProvider"
 
 export const PokemonCard = React.memo(function ({ pokemon }: { pokemon: Pokemon }) {
     const { user } = useAuth()
-    const { favorites, favoriteAdd, favorite, setFavorite } = useFavorites()
-    const isFavorite = favorite.some(f => f.name == pokemon.name)
+    const { favorites, favoriteAdd } = useFavorites()
+    const isFavorite = favorites?.pokemonFavorites.some(f => f.pokemon.name == pokemon.name)
     const navigate = useNavigate()
 
     function toggleFavorite() {

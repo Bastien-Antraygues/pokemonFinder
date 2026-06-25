@@ -9,14 +9,14 @@ import type { Pokemon } from "../interfaces/Pokemon";
 export function Favorites() {
      
     const [page,setPageable] = useState(1)
-    const { favorite } = useFavorites()
-    const [pokemons, setPokemons] =useState<Pokemon[]>(favorite)
-    let pageMax = Math.ceil(favorite.length/20)
+    const { favorites } = useFavorites()
+    const [pokemonFavorites, setpokemonFavorites] =useState<{ pokemon:Pokemon, order:number }[]>(favorites?.pokemonFavorites ||[])
+    let pageMax = Math.ceil(pokemonFavorites.length/20)
     const [pokeSize,setPokeSize] = useState<PokeSize>(getPokeSize(page))
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState("")
     if (loading) return <p>Chargement...</p>;
-    if (pokemons.length==0) return <p className="mx-20">Aucun pokemon en favoris</p>
+    if (pokemonFavorites.length==0) return <p className="mx-20">Aucun pokemon en favoris</p>
     if (error) return <p>Erreur serveur</p>;
     return (
         <>
@@ -32,9 +32,9 @@ export function Favorites() {
             }</li></ul>
             <div className="grid lg:grid-cols-2 xl:grid-cols-4">
                 {
-                    pokemons.slice(pokeSize.pStart, pokeSize.pEnd).map((value) => {
+                    pokemonFavorites.slice(pokeSize.pStart, pokeSize.pEnd).map((value) => {
                         
-                        return <PokemonCard key={value.id} pokemon={value} />
+                        return <PokemonCard key={value.pokemon.id} pokemon={value.pokemon} />
                     })
                 }
             </div>
