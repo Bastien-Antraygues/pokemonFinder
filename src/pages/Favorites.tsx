@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFavorites } from "../providers/FavoritesProvider"
 import { PageableComponent } from "../components/PageableComponent";
 import { PokemonCard } from "../components/PokemonCard";
@@ -15,6 +15,10 @@ export function Favorites() {
     const [pokeSize,setPokeSize] = useState<PokeSize>(getPokeSize(page))
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState("")
+
+    useEffect(()=>{
+        setpokemonFavorites(favorites?.pokemonFavorites || [])
+    },[favorites])
     if (loading) return <p>Chargement...</p>;
     if (pokemonFavorites.length==0) return <p className="mx-20">Aucun pokemon en favoris</p>
     if (error) return <p>Erreur serveur</p>;
