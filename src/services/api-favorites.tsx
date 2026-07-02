@@ -6,7 +6,7 @@ const apiFavorites = {
         return fetch.get<Favorites>("/favorites").then((res)=> res.data)
     },
     setPokemonFavorite: async (pokemonId:number)=> {
-        return fetch.post("/favorites", {pokemonId}).then((res)=> res.data)
+        return fetch.post<Favorites>("/favorites", {pokemonId}).then((res)=> res.data)
     }
 }
 
